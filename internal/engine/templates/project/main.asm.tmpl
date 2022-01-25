@@ -1,0 +1,27 @@
+        SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
+        DEVICE ZXSPECTRUMNEXT
+        CSPECTMAP "{{.Name}}.map"
+
+        org  $8000
+
+main:
+        ld   a,4        ; Set A to green
+        out  ($fe),a    ; Change the border
+        jr   $          ; Loop forever!
+
+;------------------------------------------------------------------------------
+; Stack reservation
+STACK_SIZE      equ     100
+
+stack_bottom:
+        defs    STACK_SIZE * 2
+stack_top:
+        defw    0
+
+;------------------------------------------------------------------------------
+; Output configuration
+        SAVENEX OPEN "{{.Name}}.nex", main, stack_top 
+        SAVENEX CORE 2,0,0
+        SAVENEX CFG 7,0,0,0
+        SAVENEX AUTO 
+        SAVENEX CLOSE

@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "{{.DevPath}}/emulator/sjasmplus",
+            "args": [
+                "src/main.asm",
+                "--zxnext=cspect",
+                "--msg=war",
+                "--fullpath",
+                "--sym={{.Name}}.sym",
+                "--sld={{.Name}}.sld",
+                "--lst={{.Name}}.lst"
+            ],
+            "problemMatcher": {
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Launch CSpect",
+            "type": "shell",
+            "command": "{{.DevPath}}/emulator/cspect -r -w3 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-512M.mmc",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Compile Assembly",
+                "Update SDCard"
+            ]
+        }
+    ]
+}

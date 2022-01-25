@@ -1,0 +1,47 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "preLaunchTask": "Build",
+            "type": "dezog",
+            "request": "launch",
+            "name": "CSpect",                
+            "remoteType": "cspect",     
+            "sjasmplus": [
+                {
+                    "path": "{{.Name}}.sld"
+                }
+            ], 
+            "history": {
+                "reverseDebugInstructionCount": 1000000,
+                "spotCount": 10
+            },
+            "commandsAfterLaunch": [
+                "-logpoint enable",
+                "-assertion enable"
+            ],
+           
+// connect to the CSpect emulator via TCIP          
+            "cspect": 
+            {
+                    "hostname": "localhost",
+                    "port": 11000
+            },
+            "rootFolder": "${workspaceFolder}",
+            "listFiles": [
+              {
+                  "path": "project.lst",
+                  "useFiles": true,
+                  "asm": "{{.DevPath}}/emulator/sjasmplus",
+                  "mainFile": "src/main.asm"
+              }
+            ],
+            "disassemblerArgs": {
+                "esxdosRst": true
+            },
+            "load": "{{.Name}}.nex",
+            "skipInterrupt": false,
+            "startAutomatically": false
+        }
+    ]
+}
