@@ -1,6 +1,8 @@
 # zxenv
 Simple command line utility to install a development environment and create starter projects for the ZX Spectrum Next
 
+**NOTE** You do need to manually install the [OpenAL library](https://www.openal.org/downloads/)
+
 ## Create a new development environment
 The following command will create a development environment in the C:\NextDev folder.
 Your development environment can be setup in any folder you like, just run the `zxenv init` command in the target folder.
@@ -18,7 +20,7 @@ C:\NextDev>zxenv new mygame
 ```
 
 ## What does it do
-When you run the `init` command the tool will create the following folders
+When you run the `init` command the tool will create the folder structure described below, download the tools and move them to the appropriate location in the folder structure.
 
 |Folder      |Description                                                                  |
 |------------|-----------------------------------------------------------------------------|
