@@ -43,12 +43,12 @@ Running the `new` command creates a folder with the name of your project that in
 ## What plans do I have for this
 This does what I needed for now, but I would like to do add the following support, in no particular order
 
--[ ] Improve the handling of command line arguments so that more options can be speficied
--[ ] Support command line options selecting the SD Card image to install
--[ ] Move projects into a project folder under the development environment
--[ ] Add support for ZEsarUX emulator
--[ ] Add support for an external config file that can override the links used to get the resources
--[ ] Add support for setting up the environment on a Mac 
--[ ] Add support for setting up the environment on Linux
--[ ] Cleanup the code so that it makes more intelligent decisions about paths
--[ ] What ever else comes to mind... any ideas?
+- [ ] Improve the handling of command line arguments so that more options can be speficied
+- [ ] Support command line options selecting the SD Card image to install
+- [ ] Move projects into a project folder under the development environment
+- [ ] Add support for ZEsarUX emulator
+- [ ] Add support for an external config file that can override the links used to get the resources
+- [ ] Add support for setting up the environment on a Mac 
+- [ ] Add support for setting up the environment on Linux
+- [ ] Cleanup the code so that it makes more intelligent decisions about paths
+- [ ] What ever else comes to mind... any ideas?
