@@ -1,12 +1,10 @@
 package engine
 
 import (
-	"archive/zip"
 	"errors"
 	"fmt"
 	"io"
 	"io/fs"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -14,8 +12,13 @@ import (
 
 var urls = map[string]string{
 	"cspect":     "http://www.javalemmings.com/public/zxnext/CSpect2_15_01.zip",
-	"sdcard":     "http://www.zxspectrumnext.online/cspect/tbbluemmc-512mb.zip",
-	"openal":     "http://www.zxspectrumnext.online/cspect/openal.zip",
+	"32mb":       "http://www.zxspectrumnext.online/cspect/tbbluemmc-32mb.zip",
+	"128mb":      "http://www.zxspectrumnext.online/cspect/tbbluemmc-128mb.zip",
+	"512mb":      "http://www.zxspectrumnext.online/cspect/tbbluemmc-512mb.zip",
+	"2gb":        "http://www.zxspectrumnext.online/cspect/tbbluemmc-2gb.zip",
+	"4gb":        "http://www.zxspectrumnext.online/cspect/tbbluemmc-4gb.zip",
+	"8gb":        "http://www.zxspectrumnext.online/cspect/tbbluemmc-8gb.zip",
+	"16gb":       "http://www.zxspectrumnext.online/cspect/tbbluemmc-16gb.zip",
 	"asm":        "https://github.com/z00m128/sjasmplus/releases/download/v1.18.3/sjasmplus-1.18.3.win.zip",
 	"hdfmonkey":  "http://uto.speccy.org/downloads/hdfmonkey_windows.zip",
 	"dezog":      "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll",
@@ -23,6 +26,8 @@ var urls = map[string]string{
 }
 
 func SetupDevelopment(env *Environment) error {
+	fmt.Println("Setting up development environment")
+
 	err := makeDirectories(env)
 	if err != nil {
 		return err
@@ -52,6 +57,12 @@ func SetupDevelopment(env *Environment) error {
 	if err != nil {
 		return err
 	}
+
+	err = env.Save()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -76,13 +87,13 @@ func makeDirectories(env *Environment) error {
 
 func installEmulator(env *Environment) error {
 	zippath := path.Join(env.TempPath(), "cspect.zip")
-	log.Println("Downloading emulator")
+	fmt.Println("Downloading emulator")
 	err := download("cspect", zippath)
 	if err != nil {
 		return fmt.Errorf("failed to install emulator (%w)", err)
 	}
 
-	log.Println("Unzipping emulator")
+	fmt.Println("Unzipping emulator")
 	err = unzip(zippath, env.EmulatorPath())
 	if err != nil {
 		return fmt.Errorf("failed to unzip the emulator (%w)", err)
@@ -93,14 +104,14 @@ func installEmulator(env *Environment) error {
 func installDeZog(env *Environment) error {
 	targetPath := path.Join(env.EmulatorPath(), "DeZogPlugin.dll")
 
-	log.Println("Downloading DeZogPlugin")
+	fmt.Println("Downloading DeZogPlugin")
 	err := download("dezog", targetPath)
 	if err != nil {
 		return fmt.Errorf("failed to download DeZogPlugin (%w)", err)
 	}
 
 	targetPath = path.Join(env.EmulatorPath(), "DeZogPlugin.dll.config")
-	log.Println("Downloading DeZogPlugin config")
+	fmt.Println("Downloading DeZogPlugin config")
 	err = download("dezog-conf", targetPath)
 	if err != nil {
 		return fmt.Errorf("failed to download DeZogPlugin config (%w)", err)
@@ -112,7 +123,7 @@ func installDeZog(env *Environment) error {
 func installSDTool(env *Environment) error {
 	targetPath := path.Join(env.EmulatorPath(), "hdfmonkey.exe")
 
-	log.Println("Downloading hdfmonkey")
+	fmt.Println("Downloading hdfmonkey")
 	err := download("hdfmonkey", targetPath)
 	if err != nil {
 		return fmt.Errorf("failed to download hdfmonkey (%w)", err)
@@ -122,16 +133,16 @@ func installSDTool(env *Environment) error {
 }
 
 func setupSdCard(env *Environment) error {
-	zippath := path.Join(env.TempPath(), "sdcard.zip")
+	downloadDst := path.Join(env.TempPath(), env.SDCardName())
 
-	log.Println("Downloading SD Card")
-	err := download("sdcard", zippath)
+	fmt.Println("Downloading SD Card")
+	err := download(env.SDSize, downloadDst)
 	if err != nil {
 		return fmt.Errorf("failed to download sd card image (%w)", err)
 	}
 
-	log.Println("Unzipping SD Card")
-	err = unzip(zippath, env.TempPath())
+	fmt.Println("Unzipping SD Card")
+	err = unzip(downloadDst, env.TempPath())
 	if err != nil {
 		return fmt.Errorf("failed to unzip the sd card image (%w)", err)
 	}
@@ -143,15 +154,16 @@ func setupSdCard(env *Environment) error {
 
 	for _, file := range files {
 		if path.Ext(file.Name()) == ".img" || path.Ext(file.Name()) == ".mmc" {
-			log.Printf("Copying %v\n", file.Name())
-			_, err = copyFile(path.Join(env.TempPath(), file.Name()), path.Join(env.SDPath(), file.Name()))
+			fmt.Printf("Copying %v\n", file.Name())
+			ext := path.Ext(file.Name())
+			_, err = copyFile(path.Join(env.TempPath(), file.Name()), path.Join(env.SDPath(), "tbblue-dev"+ext))
 			if err != nil {
 				return err
 			}
 		}
 
 		if path.Ext(file.Name()) == ".rom" {
-			log.Printf("Copying %v\n", file.Name())
+			fmt.Printf("Copying %v\n", file.Name())
 			_, err = copyFile(path.Join(env.TempPath(), file.Name()), path.Join(env.EmulatorPath(), file.Name()))
 			if err != nil {
 				return err
@@ -166,13 +178,13 @@ func installAssembler(env *Environment) error {
 	zippath := path.Join(env.TempPath(), "sjasmplus.zip")
 	unzippath := path.Join(env.TempPath(), "sjasmplus")
 
-	log.Printf("Downloading sjasmplus")
+	fmt.Printf("Downloading sjasmplus")
 	err := download("asm", zippath)
 	if err != nil {
 		return fmt.Errorf("failed to download sd card image (%w)", err)
 	}
 
-	log.Printf("Unzipping sjasmplus")
+	fmt.Printf("Unzipping sjasmplus")
 	err = unzip(zippath, unzippath)
 	if err != nil {
 		return fmt.Errorf("failed to unzip the sd card image (%w)", err)
@@ -180,7 +192,7 @@ func installAssembler(env *Environment) error {
 
 	err = filepath.WalkDir(unzippath, func(fullpath string, d fs.DirEntry, err error) error {
 		if !d.IsDir() && d.Name() == "sjasmplus.exe" {
-			log.Printf("Copying %v\n", d.Name())
+			fmt.Printf("Copying %v\n", d.Name())
 			_, err2 := copyFile(fullpath, path.Join(env.EmulatorPath(), d.Name()))
 			if err2 != nil {
 				return err2
@@ -222,6 +234,13 @@ func copyFile(src, dst string) (int64, error) {
 	return nBytes, err
 }
 
+func reportCopyProgress(progress <-chan int) {
+	for bytes := range progress {
+		fmt.Printf("[%v]\x1b[K\r", bytes)
+	}
+	fmt.Println()
+}
+
 func download(urlkey, filename string) error {
 	if _, err := os.Stat(filename); err == nil {
 		err = os.Remove(filename)
@@ -232,43 +251,7 @@ func download(urlkey, filename string) error {
 		return err
 	}
 
-	downloadFile(urls[urlkey], filename, func(totalBytes int, progress <-chan int) {
-		for bytes := range progress {
-			fmt.Printf("[%v / %v]\x1b[K\r", bytes, totalBytes)
-		}
-		fmt.Println()
-	})
+	downloadFile(urls[urlkey], filename, reportCopyProgress)
 
-	return nil
-}
-
-func unzip(zipfile, destination string) error {
-	rdr, err := zip.OpenReader(zipfile)
-	if err != nil {
-		return err
-	}
-	defer rdr.Close()
-
-	for _, f := range rdr.File {
-		source, err := f.Open()
-		if err != nil {
-			return err
-		}
-		target := path.Join(destination, f.Name)
-		if f.FileInfo().IsDir() {
-			os.MkdirAll(target, f.Mode())
-		} else {
-			newFile, err := os.Create(target)
-			if err != nil {
-				return err
-			}
-			defer newFile.Close()
-
-			_, err = io.Copy(newFile, source)
-			if err != nil {
-				return err
-			}
-		}
-	}
 	return nil
 }

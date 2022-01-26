@@ -16,8 +16,8 @@ type project struct {
 	Name    string
 }
 
-func CreateProject(devpath, name string) error {
-	devpath, err := filepath.Abs(devpath)
+func CreateProject(env *Environment, name string) error {
+	devpath, err := filepath.Abs(env.BasePath)
 	if err != nil {
 		return err
 	}
