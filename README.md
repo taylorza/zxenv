@@ -1,4 +1,4 @@
-# zxenv
+# zxenv [![zxenv](https://github.com/taylorza/zxenv/actions/workflows/go.yml/badge.svg)](https://github.com/taylorza/zxenv/actions/workflows/go.yml)
 Simple command line utility to install a development environment and create starter projects for the ZX Spectrum Next
 
 **NOTE** You do need to manually install the [OpenAL library](https://www.openal.org/downloads/)
