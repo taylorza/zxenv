@@ -12,16 +12,15 @@ import (
 var tmplfs embed.FS
 
 type project struct {
-	DevPath string
-	Name    string
+	DevPath  string
+	Emulator string
+	Name     string
 }
 
 func CreateProject(env *Environment, name string) error {
 	devpath, err := filepath.Abs(env.BasePath)
-	if err != nil {
-		return err
-	}
-	p := project{filepath.ToSlash(devpath), name}
+	devpath = filepath.ToSlash(devpath)
+	p := project{devpath, env.Emulator, name}
 
 	t, err := template.ParseFS(tmplfs, "templates/project/*.tmpl")
 	if err != nil {

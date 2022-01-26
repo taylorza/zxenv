@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 )
 
 const bufferSize = 32 * 1024
@@ -66,6 +67,10 @@ func downloadFile(url, destination string, progress ProgressFunc) error {
 }
 
 func unzip(zipfile, destination string) error {
+	return unzipAndStrip(zipfile, destination, "")
+}
+
+func unzipAndStrip(zipfile, destination, stripPath string) error {
 	rdr, err := zip.OpenReader(zipfile)
 	if err != nil {
 		return err
@@ -77,7 +82,8 @@ func unzip(zipfile, destination string) error {
 		if err != nil {
 			return err
 		}
-		target := path.Join(destination, f.Name)
+		fname := strings.Replace(f.Name, stripPath, "", 1)
+		target := path.Join(destination, fname)
 		if f.FileInfo().IsDir() {
 			os.MkdirAll(target, f.Mode())
 		} else {

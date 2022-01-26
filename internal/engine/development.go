@@ -10,8 +10,10 @@ import (
 	"path/filepath"
 )
 
+var zesaruxFolder = "ZEsarUX-10.0-windows"
 var urls = map[string]string{
 	"cspect":     "http://www.javalemmings.com/public/zxnext/CSpect2_15_01.zip",
+	"zesarux":    "https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip",
 	"32mb":       "http://www.zxspectrumnext.online/cspect/tbbluemmc-32mb.zip",
 	"128mb":      "http://www.zxspectrumnext.online/cspect/tbbluemmc-128mb.zip",
 	"512mb":      "http://www.zxspectrumnext.online/cspect/tbbluemmc-512mb.zip",
@@ -27,6 +29,9 @@ var urls = map[string]string{
 
 func SetupDevelopment(env *Environment) error {
 	fmt.Println("Setting up development environment")
+	fmt.Printf("Emulator: %v\n", env.Emulator)
+	fmt.Printf("SD Card Size: %v\n", env.SDSize)
+	fmt.Println()
 
 	err := makeDirectories(env)
 	if err != nil {
@@ -86,15 +91,19 @@ func makeDirectories(env *Environment) error {
 }
 
 func installEmulator(env *Environment) error {
-	zippath := path.Join(env.TempPath(), "cspect.zip")
+	zippath := path.Join(env.TempPath(), "emulator.zip")
 	fmt.Println("Downloading emulator")
-	err := download("cspect", zippath)
+	err := download(env.Emulator, zippath)
 	if err != nil {
 		return fmt.Errorf("failed to install emulator (%w)", err)
 	}
 
 	fmt.Println("Unzipping emulator")
-	err = unzip(zippath, env.EmulatorPath())
+	if env.Emulator == "zesarux" {
+		err = unzipAndStrip(zippath, env.EmulatorPath(), zesaruxFolder)
+	} else {
+		err = unzip(zippath, env.EmulatorPath())
+	}
 	if err != nil {
 		return fmt.Errorf("failed to unzip the emulator (%w)", err)
 	}

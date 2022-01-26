@@ -32,15 +32,28 @@
                 "isDefault": true
             }
         },
+        {{if (eq .Emulator "cspect")}}
         {
             "label": "Launch CSpect",
             "type": "shell",
-            "command": "{{.DevPath}}/emulator/cspect -r -w3 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.mmc",
+            "command": "{{.DevPath}}/emulator/cspect -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.mmc",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Compile Assembly",
                 "Update SDCard"
             ]
         }
+        {{else}}
+        {
+            "label": "Launch ZEsarUX",
+            "type": "shell",
+            "command": "{{.DevPath}}/emulator/zesarux --romfile {{.DevPath}}/emulator/tbblue_loader.rom --mmc-file {{.DevPath}}/sdcard/tbblue-dev.mmc --enable-mmc --enable-divmmc-ports --machine tbblue --realvideo --enable-remoteprotocol",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Compile Assembly",
+                "Update SDCard"
+            ]
+        }
+        {{end}}
     ]
 }

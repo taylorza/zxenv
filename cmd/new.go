@@ -26,7 +26,11 @@ var newCmd = &cobra.Command{
 			fmt.Println(err)
 			return
 		}
-		engine.CreateProject(env, args[0])
+		err = engine.CreateProject(env, args[0])
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	},
 }
 

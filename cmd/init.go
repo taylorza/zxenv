@@ -22,6 +22,11 @@ var imageUrls = map[string]struct{}{
 	"16gb":  {},
 }
 
+var emulators = map[string]struct{}{
+	"cspect":  {},
+	"zesarux": {},
+}
+
 // initCmd represents the init command
 var initCmd = &cobra.Command{
 	Use:   "init",
@@ -31,14 +36,23 @@ var initCmd = &cobra.Command{
 		size, _ := cmd.Flags().GetString("size")
 		size = strings.ToLower(size)
 
+		emulator, _ := cmd.Flags().GetString("emulator")
+		emulator = strings.ToLower(emulator)
+
 		if _, ok := imageUrls[size]; !ok {
 			fmt.Println("Invalid size, valid sizes are: 32mb, 128mb, 512mb, 2gb, 4gb, 8gb, 16gb")
+			return
+		}
+
+		if _, ok := emulators[emulator]; !ok {
+			fmt.Println("Invalid emulator, valid emulators are: cspect, zesarux")
 			return
 		}
 
 		env := &engine.Environment{
 			BasePath: ".",
 			SDSize:   size,
+			Emulator: emulator,
 		}
 
 		engine.SetupDevelopment(env)
@@ -49,4 +63,5 @@ func init() {
 	rootCmd.AddCommand(initCmd)
 
 	initCmd.Flags().StringP("size", "s", "512mb", "Image size of the SD card (32mb, 128mb, 512mb, 2gb, 4gb, 8gb, 16gb)")
+	initCmd.Flags().StringP("emulator", "e", "cspect", "Emulator to use (cspect, zesarux)")
 }

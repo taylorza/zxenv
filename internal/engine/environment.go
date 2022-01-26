@@ -14,6 +14,7 @@ var sdDir = "sdcard"
 type Environment struct {
 	BasePath string `json:"base_path"`
 	SDSize   string `json:"sd_size"`
+	Emulator string `json:"emulator"`
 }
 
 func (e *Environment) TempPath() string {
