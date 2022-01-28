@@ -36,6 +36,7 @@ Running the `new` command creates a folder with the name of your project that in
 |Tool        |URL|
 |------------|-----------------------------------------------------------------------------|
 |CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_15_01.zip|
+|ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip|
 |DeZogPlugin |https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll|
 |dezog-conf  |https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config|
 |sjasmplus   |https://github.com/z00m128/sjasmplus/releases/download/v1.18.3/sjasmplus-1.18.3.win.zip|
