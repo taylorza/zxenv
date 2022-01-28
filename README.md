@@ -11,6 +11,8 @@ Your development environment can be setup in any folder you like, just run the `
 C:\NextDev>zxenv init
 ```
 
+Without any other arguments a CSpect development environment with a 512MB SD Card will be created. To see other options run `zxenv` without any arguments to see more info.
+
 ## Create a new project
 In your newly minted development environment you can run the `zxenv init <projectname>` to create a new project.
 You can name the project anything you want, but do not put spaces in the name. For example the following will create a project called `mygame`
@@ -46,7 +48,7 @@ This does what I needed for now, but I would like to do add the following suppor
 - [x] Improve the handling of command line arguments so that more options can be speficied
 - [x] Support command line options selecting the SD Card image to install
 - [ ] Move projects into a project folder under the development environment
-- [ ] Add support for ZEsarUX emulator
+- [x] Add support for ZEsarUX emulator
 - [ ] Add support for an external config file that can override the links used to get the resources
 - [ ] Add support for setting up the environment on a Mac 
 - [ ] Add support for setting up the environment on Linux
