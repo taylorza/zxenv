@@ -67,23 +67,27 @@ func downloadFile(url, destination string, progress ProgressFunc) error {
 }
 
 func unzip(zipfile, destination string) error {
-	return unzipAndStrip(zipfile, destination, "")
+	return unzipAndStrip(zipfile, destination, false)
 }
 
-func unzipAndStrip(zipfile, destination, stripPath string) error {
+func unzipAndStrip(zipfile, destination string, stripFirstDir bool) error {
 	rdr, err := zip.OpenReader(zipfile)
 	if err != nil {
 		return err
 	}
 	defer rdr.Close()
 
+	stripDir := ""
 	for _, f := range rdr.File {
 		source, err := f.Open()
 		if err != nil {
 			return err
 		}
-		fname := strings.Replace(f.Name, stripPath, "", 1)
-		target := path.Join(destination, fname)
+		if f.FileInfo().IsDir() && stripFirstDir && stripDir == "" {
+			stripDir = f.Name
+		}
+		name := strings.Replace(f.Name, stripDir, "", 1)
+		target := path.Join(destination, name)
 		if f.FileInfo().IsDir() {
 			os.MkdirAll(target, f.Mode())
 		} else {

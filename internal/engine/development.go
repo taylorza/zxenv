@@ -10,7 +10,6 @@ import (
 	"path/filepath"
 )
 
-var zesaruxFolder = "ZEsarUX-10.0-windows"
 var urls = map[string]string{
 	"cspect":     "http://www.javalemmings.com/public/zxnext/CSpect2_15_01.zip",
 	"zesarux":    "https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip",
@@ -100,7 +99,7 @@ func installEmulator(env *Environment) error {
 
 	fmt.Println("Unzipping emulator")
 	if env.Emulator == "zesarux" {
-		err = unzipAndStrip(zippath, env.EmulatorPath(), zesaruxFolder)
+		err = unzipAndStrip(zippath, env.EmulatorPath(), true)
 	} else {
 		err = unzip(zippath, env.EmulatorPath())
 	}
