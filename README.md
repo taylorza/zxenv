@@ -11,7 +11,7 @@ Your development environment can be setup in any folder you like, just run the `
 C:\NextDev>zxenv init
 ```
 
-Without any other arguments a CSpect development environment with a 512MB SD Card will be created. To see other options run `zxenv` without any arguments to see more info.
+Without any other arguments a CSpect development environment with a 512MB SD Card will be created. To see other options run `zxenv` without any arguments.
 
 ## Create a new project
 In your newly minted development environment you can run the `zxenv init <projectname>` to create a new project.
