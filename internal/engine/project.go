@@ -19,8 +19,14 @@ type project struct {
 
 func CreateProject(env *Environment, name string) error {
 	devpath, err := filepath.Abs(env.BasePath)
+	if err != nil {
+		return err
+	}
 	devpath = filepath.ToSlash(devpath)
 	p := project{devpath, env.Emulator, name}
+
+	os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), os.ModeDir)
+	os.MkdirAll(filepath.Join(devpath, p.Name, "src"), os.ModeDir)
 
 	t, err := template.ParseFS(tmplfs, "templates/project/*.tmpl")
 	if err != nil {
