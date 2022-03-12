@@ -33,6 +33,16 @@
                 "isDefault": true
             }
         },
+        {
+            "label": "Update SDCard",
+            "type": "shell",
+            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.mmc {{.Name}}.nex",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Build",
+            ],
+            "problemMatcher": []
+        },
         {{if (eq .Emulator "cspect")}}
         {
             "label": "Launch CSpect",
@@ -40,8 +50,6 @@
             "command": "{{.DevPath}}/emulator/cspect -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.mmc",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Compile Assembly",
-                "Update SDCard"
             ]
         }
         {{else}}
@@ -51,8 +59,6 @@
             "command": "{{.DevPath}}/emulator/zesarux --romfile {{.DevPath}}/emulator/tbblue_loader.rom --mmc-file {{.DevPath}}/sdcard/tbblue-dev.mmc --enable-mmc --enable-divmmc-ports --machine tbblue --realvideo --enable-remoteprotocol",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Compile Assembly",
-                "Update SDCard"
             ]
         }
         {{end}}

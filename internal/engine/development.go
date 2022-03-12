@@ -129,12 +129,18 @@ func installDeZog(env *Environment) error {
 }
 
 func installSDTool(env *Environment) error {
-	targetPath := path.Join(env.EmulatorPath(), "hdfmonkey.exe")
+	downloadDst := path.Join(env.TempPath(), "hdfmonkey.zip")
 
 	fmt.Println("Downloading hdfmonkey")
-	err := download("hdfmonkey", targetPath)
+	err := download("hdfmonkey", downloadDst)
 	if err != nil {
 		return fmt.Errorf("failed to download hdfmonkey (%w)", err)
+	}
+
+	fmt.Println("Unzipping hdfmonkey")
+	err = unzip(downloadDst, env.EmulatorPath())
+	if err != nil {
+		return fmt.Errorf("failed to unzip hdfmonkey (%w)", err)
 	}
 
 	return nil
