@@ -11,7 +11,7 @@ Your development environment can be setup in any folder you like, just run the `
 C:\NextDev>zxenv init
 ```
 
-Without any other arguments a CSpect development environment with a 512MB SD Card will be created. To see other options run `zxenv` without any arguments.
+Without any other arguments a CSpect development environment with a Core 3 compatible 128mb SD Card will be created. To see other options run `zxenv` without any arguments.
 
 ## Create a new project
 In your newly minted development environment you can run the `zxenv init <projectname>` to create a new project.
@@ -28,18 +28,19 @@ When you run the `init` command the tool will create the folder structure descri
 |------------|-----------------------------------------------------------------------------|
 |.tmp        |Temporary folder used to store the downloaded items and extract the zip files|
 |emulator    |The emulator and all the related files like roms etc. can be found in this folder.|
-|sdcard      |The only file in here is the sdcard image, currently this only installs the 512MB image|
+|sdcard      |The SD card image used by the emulator|
 
 Running the `new` command creates a folder with the name of your project that includes a simple sample program as well as the VS Code templates required to launch the emulator, build and debug the application. The default launch action will run the build task before launching the application to ensure that you are running the latest code. 
 
 ## What is installed
 |Tool        |URL|
 |------------|-----------------------------------------------------------------------------|
-|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_15_01.zip|
+|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_16_3.zip|
+|CSpect2     |http://www.javalemmings.com/public/zxnext/CSpect2_15_02.zip|
 |ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip|
 |DeZogPlugin |https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll|
 |dezog-conf  |https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config|
-|sjasmplus   |https://github.com/z00m128/sjasmplus/releases/download/v1.18.3/sjasmplus-1.18.3.win.zip|
+|sjasmplus   |https://github.com/z00m128/sjasmplus/releases/download/v1.19.0/sjasmplus-1.19.0.win.zip|
 |hdfmonkey   |http://uto.speccy.org/downloads/hdfmonkey_windows.zip|
 |sdcard      |http://www.zxspectrumnext.online/cspect/tbbluemmc-512mb.zip|
 

@@ -11,19 +11,18 @@ import (
 )
 
 var urls = map[string]string{
-	"cspect":     "http://www.javalemmings.com/public/zxnext/CSpect2_15_01.zip",
-	"zesarux":    "https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip",
-	"32mb":       "http://www.zxspectrumnext.online/cspect/tbbluemmc-32mb.zip",
-	"128mb":      "http://www.zxspectrumnext.online/cspect/tbbluemmc-128mb.zip",
-	"512mb":      "http://www.zxspectrumnext.online/cspect/tbbluemmc-512mb.zip",
-	"2gb":        "http://www.zxspectrumnext.online/cspect/tbbluemmc-2gb.zip",
-	"4gb":        "http://www.zxspectrumnext.online/cspect/tbbluemmc-4gb.zip",
-	"8gb":        "http://www.zxspectrumnext.online/cspect/tbbluemmc-8gb.zip",
-	"16gb":       "http://www.zxspectrumnext.online/cspect/tbbluemmc-16gb.zip",
-	"asm":        "https://github.com/z00m128/sjasmplus/releases/download/v1.18.3/sjasmplus-1.18.3.win.zip",
-	"hdfmonkey":  "http://uto.speccy.org/downloads/hdfmonkey_windows.zip",
-	"dezog":      "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll",
-	"dezog-conf": "https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config",
+	"cspect":      "http://www.javalemmings.com/public/zxnext/CSpect2_16_3.zip",
+	"cspect2":     "http://www.javalemmings.com/public/zxnext/CSpect2_15_02.zip",
+	"zesarux":     "https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip",
+	"core3-128mb": "https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07g.zip?raw=true",
+	"2gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip",
+	"4gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip",
+	"8gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip",
+	"16gb":        "http://www.zxspectrumnext.online/cspect/cspect-next-16gb.zip",
+	"asm":         "https://github.com/z00m128/sjasmplus/releases/download/v1.19.0/sjasmplus-1.19.0.win.zip",
+	"hdfmonkey":   "http://uto.speccy.org/downloads/hdfmonkey_windows.zip",
+	"dezog":       "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll",
+	"dezog-conf":  "https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config",
 }
 
 func SetupDevelopment(env *Environment) error {
@@ -38,11 +37,6 @@ func SetupDevelopment(env *Environment) error {
 	}
 
 	err = installEmulator(env)
-	if err != nil {
-		return err
-	}
-
-	err = installDeZog(env)
 	if err != nil {
 		return err
 	}
@@ -106,25 +100,6 @@ func installEmulator(env *Environment) error {
 	if err != nil {
 		return fmt.Errorf("failed to unzip the emulator (%w)", err)
 	}
-	return nil
-}
-
-func installDeZog(env *Environment) error {
-	targetPath := path.Join(env.EmulatorPath(), "DeZogPlugin.dll")
-
-	fmt.Println("Downloading DeZogPlugin")
-	err := download("dezog", targetPath)
-	if err != nil {
-		return fmt.Errorf("failed to download DeZogPlugin (%w)", err)
-	}
-
-	targetPath = path.Join(env.EmulatorPath(), "DeZogPlugin.dll.config")
-	fmt.Println("Downloading DeZogPlugin config")
-	err = download("dezog-conf", targetPath)
-	if err != nil {
-		return fmt.Errorf("failed to download DeZogPlugin config (%w)", err)
-	}
-
 	return nil
 }
 
