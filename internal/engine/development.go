@@ -11,15 +11,14 @@ import (
 )
 
 var urls = map[string]string{
-	"cspect":      "http://www.javalemmings.com/public/zxnext/CSpect2_16_3.zip",
-	"cspect2":     "http://www.javalemmings.com/public/zxnext/CSpect2_15_02.zip",
-	"zesarux":     "https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip",
+	"cspect":      "http://www.javalemmings.com/public/zxnext/CSpect2_16_5.zip",
+	"zesarux":     "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip",
 	"core3-128mb": "https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07g.zip?raw=true",
 	"2gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip",
 	"4gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip",
 	"8gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip",
 	"16gb":        "http://www.zxspectrumnext.online/cspect/cspect-next-16gb.zip",
-	"asm":         "https://github.com/z00m128/sjasmplus/releases/download/v1.19.0/sjasmplus-1.19.0.win.zip",
+	"asm":         "https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip",
 	"hdfmonkey":   "http://uto.speccy.org/downloads/hdfmonkey_windows.zip",
 	"dezog":       "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll",
 	"dezog-conf":  "https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config",
@@ -144,8 +143,7 @@ func setupSdCard(env *Environment) error {
 	for _, file := range files {
 		if path.Ext(file.Name()) == ".img" || path.Ext(file.Name()) == ".mmc" {
 			fmt.Printf("Copying %v\n", file.Name())
-			ext := path.Ext(file.Name())
-			_, err = copyFile(path.Join(env.TempPath(), file.Name()), path.Join(env.SDPath(), "tbblue-dev"+ext))
+			_, err = copyFile(path.Join(env.TempPath(), file.Name()), path.Join(env.SDPath(), "tbblue-dev.sd"))
 			if err != nil {
 				return err
 			}
@@ -167,13 +165,13 @@ func installAssembler(env *Environment) error {
 	zippath := path.Join(env.TempPath(), "sjasmplus.zip")
 	unzippath := path.Join(env.TempPath(), "sjasmplus")
 
-	fmt.Printf("Downloading sjasmplus")
+	fmt.Println("Downloading sjasmplus")
 	err := download("asm", zippath)
 	if err != nil {
 		return fmt.Errorf("failed to download sd card image (%w)", err)
 	}
 
-	fmt.Printf("Unzipping sjasmplus")
+	fmt.Println("Unzipping sjasmplus")
 	err = unzip(zippath, unzippath)
 	if err != nil {
 		return fmt.Errorf("failed to unzip the sd card image (%w)", err)

@@ -36,7 +36,7 @@
         {
             "label": "Update SDCard",
             "type": "shell",
-            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.mmc {{.Name}}.nex",
+            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}}.nex",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Build",
@@ -47,7 +47,7 @@
         {
             "label": "Launch CSpect",
             "type": "shell",
-            "command": "{{.DevPath}}/emulator/cspect -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.mmc",
+            "command": "{{.DevPath}}/emulator/cspect -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.sd",
             "dependsOrder": "sequence",
             "dependsOn": [
             ]

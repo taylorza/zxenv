@@ -35,14 +35,14 @@ Running the `new` command creates a folder with the name of your project that in
 ## What is installed
 |Tool        |URL|
 |------------|-----------------------------------------------------------------------------|
-|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_16_3.zip|
-|CSpect2     |http://www.javalemmings.com/public/zxnext/CSpect2_15_02.zip|
-|ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/10.0/ZEsarUX_windows-10.0.zip|
+|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_16_5.zip|
+|ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip|
 |DeZogPlugin |https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll|
 |dezog-conf  |https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config|
-|sjasmplus   |https://github.com/z00m128/sjasmplus/releases/download/v1.19.0/sjasmplus-1.19.0.win.zip|
+|sjasmplus   |https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip|
 |hdfmonkey   |http://uto.speccy.org/downloads/hdfmonkey_windows.zip|
-|sdcard      |http://www.zxspectrumnext.online/cspect/tbbluemmc-512mb.zip|
+|sdcard      |http://www.zxspectrumnext.online/cspect/tbbluemmc-*.zip|
+|core-3 sdcard|https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07g.zip?raw=true|
 
 ## What plans do I have for this
 This does what I needed for now, but I would like to do add the following support, in no particular order
