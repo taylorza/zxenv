@@ -71,6 +71,11 @@ func unzip(zipfile, destination string) error {
 }
 
 func unzipAndStrip(zipfile, destination string, stripFirstDir bool) error {
+	err := os.MkdirAll(destination, 0777)
+	if err != nil {
+		return err
+	}
+
 	rdr, err := zip.OpenReader(zipfile)
 	if err != nil {
 		return err
@@ -89,7 +94,10 @@ func unzipAndStrip(zipfile, destination string, stripFirstDir bool) error {
 		name := strings.Replace(f.Name, stripDir, "", 1)
 		target := path.Join(destination, name)
 		if f.FileInfo().IsDir() {
-			os.MkdirAll(target, f.Mode())
+			err = os.MkdirAll(target, f.Mode())
+			if err != nil {
+				return err
+			}
 		} else {
 			newFile, err := os.Create(target)
 			if err != nil {
@@ -98,6 +106,10 @@ func unzipAndStrip(zipfile, destination string, stripFirstDir bool) error {
 			defer newFile.Close()
 
 			_, err = io.Copy(newFile, source)
+			if err != nil {
+				return err
+			}
+			err = os.Chmod(target, f.Mode())
 			if err != nil {
 				return err
 			}

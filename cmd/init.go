@@ -54,7 +54,10 @@ var initCmd = &cobra.Command{
 			Emulator: emulator,
 		}
 
-		engine.SetupDevelopment(env)
+		err := engine.SetupDevelopment(env)
+		if err != nil {
+			fmt.Println(err)
+		}
 	},
 }
 

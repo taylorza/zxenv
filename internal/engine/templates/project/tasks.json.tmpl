@@ -47,7 +47,11 @@
         {
             "label": "Launch CSpect",
             "type": "shell",
-            "command": "{{.DevPath}}/emulator/cspect -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.sd",
+            {{if (isWindows)}}
+            "command": "{{.DevPath}}/emulator/CSpect.exe -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.sd",
+            {{else}}
+            "command": "mono {{.DevPath}}/emulator/CSpect.exe -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.sd",
+            {{end}}
             "dependsOrder": "sequence",
             "dependsOn": [
             ]

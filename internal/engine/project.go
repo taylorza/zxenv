@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"runtime"
 	"text/template"
 )
 
@@ -22,13 +23,20 @@ func CreateProject(env *Environment, name string) error {
 	if err != nil {
 		return err
 	}
+
 	devpath = filepath.ToSlash(devpath)
 	p := project{devpath, env.Emulator, name}
 
-	os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), os.ModeDir)
-	os.MkdirAll(filepath.Join(devpath, p.Name, "src"), os.ModeDir)
+	os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), 0777)
+	os.MkdirAll(filepath.Join(devpath, p.Name, "src"), 0777)
 
-	t, err := template.ParseFS(tmplfs, "templates/project/*.tmpl")
+	tmplFuncs := template.FuncMap{
+		"isWindows": func() bool {
+			return runtime.GOOS == "Windows"
+		},
+	}
+
+	t, err := template.New("templates").Funcs(tmplFuncs).ParseFS(tmplfs, "templates/project/*.tmpl")
 	if err != nil {
 		return err
 	}
@@ -59,7 +67,7 @@ func CreateProject(env *Environment, name string) error {
 func renderFile(p project, t *template.Template, subdir, filename string) error {
 	dir := path.Join(p.DevPath, p.Name, subdir)
 	fullfilename := path.Join(dir, filename)
-	err := os.MkdirAll(dir, os.ModeDir)
+	err := os.MkdirAll(dir, 0777)
 	if err != nil {
 		return err
 	}
