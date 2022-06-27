@@ -46,6 +46,7 @@ var sources = Sources{
 	Source{Name: "8gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip"},
 	Source{Name: "16gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-16gb.zip"},
 	Source{Name: "asm", Arch: "", OS: "", Url: "https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip"},
+	Source{Name: "asm", Arch: "amd64", OS: "linux", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.0.linux.zip?raw=true"},
 	Source{Name: "asm", Arch: "", OS: "darwin", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.0.mac.zip?raw=true"},
 	Source{Name: "hdfmonkey", Arch: "", OS: "", Url: "http://uto.speccy.org/downloads/hdfmonkey_windows.zip"},
 	Source{Name: "dezog", Arch: "", OS: "", Url: "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll"},
