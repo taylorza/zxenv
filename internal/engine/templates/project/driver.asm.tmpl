@@ -1,0 +1,77 @@
+        SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
+        DEVICE ZXSPECTRUMNEXT
+        CSPECTMAP "{{.Name}}.map"
+
+BASE_ADDRESS equ $8000
+
+        org  BASE_ADDRESS
+
+        ; CSpect macro used for debugging
+        macro DBG_BREAK
+            defb $dd, $01
+            nop
+        endm
+
+;------------------------------------------------------------------------------
+; Driver header
+        db "NDRV"               ; .DRV Signature
+        db "P"                  ; Driver ID - "P" standard printer device
+        db relocate_count       ; Number of relocations
+        db 0                    ; Number of 8K DivMMC RAM banks needed
+        db 0                    ; Number of 8K Spectrum RAM banks needed
+
+;------------------------------------------------------------------------------
+; Driver code
+        disp $0000              ; Driver entry point starts at $0000
+        RELOCATE_START HIGH        
+
+entry:       
+        ld a, b
+        
+        cp $fb                  ; Output character
+        jp z, output_char       ; Use jp so that we get relocation generated
+ 
+        cp $7f                  ; Get device status
+        jp z, get_status        ; Use jp so that we get relocation generated
+ 
+.error
+        xor a                   ; A=0 unsupported call id
+        scf                     ; CY=1 indicates and error
+        ret
+ 
+;-----------------------------------------------------------------------------
+; Call ID - $fb
+; output_char 
+;       E - char to print
+output_char:
+        ld a, e                 ; Get char to print
+        and %00000111           ; Mask the lower bits to us as a border color
+        out ($fe), a            ; Write the border color
+ 
+        or a                    ; Clear the carry flag to indicate no error
+        ret
+ 
+;------------------------------------------------------------------------------
+; Call ID - $7f
+; get_status 
+get_status:     
+        ld bc, $ffff            ; Device ready
+        or a                    ; Clear the carry flag to indicate no error
+        ret
+        
+        RELOCATE_END
+ 
+; Pad driver to 512
+        ASSERT $ <= 512, Driver image exceeds 512 bytes
+        ds 512-$, 0
+ 
+;------------------------------------------------------------------------------
+; Relocation table placed after driver image
+relocator_table:
+        RELOCATE_TABLE 
+                
+;------------------------------------------------------------------------------
+; Output configuration
+image_size       EQU     $$$-BASE_ADDRESS ; Size includes the header, code and relocation table
+ 
+        SAVEBIN "{{.Name}}.drv", BASE_ADDRESS, image_size

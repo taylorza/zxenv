@@ -6,7 +6,11 @@
             "type": "shell",
             "command": "{{.DevPath}}/emulator/sjasmplus",
             "args": [
+            {{if (eq .Type "DRV")}}
+                "src/driver.asm",
+            {{else}}
                 "src/main.asm",
+            {{end}}
                 "--zxnext=cspect",
                 "--inc=inc",
                 "--msg=war",
@@ -36,7 +40,14 @@
         {
             "label": "Update SDCard",
             "type": "shell",
+            {{if (eq .Type "NEX")}}
             "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}}.nex",
+            {{else if (eq .Type "DOT")}}
+            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}} /dot/",
+            {{else}}
+            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}}.drv",
+            {{end}}
+            
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Build",

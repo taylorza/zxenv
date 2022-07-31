@@ -35,13 +35,21 @@
                   "path": "project.lst",
                   "useFiles": true,
                   "asm": "{{.DevPath}}/emulator/sjasmplus",
+                  {{if (eq .Type "DRV")}}
+                  "mainFile": "src/driver.asm"
+                  {{else}}
                   "mainFile": "src/main.asm"
+                  {{end}}                  
               }
             ],
             "disassemblerArgs": {
                 "esxdosRst": true
             },
+            {{if (eq .Type "NEX")}}
             "load": "{{.Name}}.nex",
+            {{else if (eq .Type "DOT")}}
+            "load": "{{.Name}}",
+            {{end}}
             "skipInterrupt": false,
             "smallValuesMaximum": 513,
             "tmpDir": ".tmp"
@@ -72,7 +80,11 @@
             },
             "rootFolder": "${workspaceFolder}",
             "topOfStack": "stack_top",
+            {{if (eq .Type "NEX")}}
             "load": "{{.Name}}.nex",
+            {{else if (eq .Type "DOT")}}
+            "load": "{{.Name}}",
+            {{end}}
             "smallValuesMaximum": 513,
             "tmpDir": ".tmp"
         }
@@ -113,7 +125,11 @@
             },
             "rootFolder": "${workspaceFolder}",
             "topOfStack": "stack_top",
+            {{if (eq .Type "NEX")}}
             "load": "{{.Name}}.nex",
+            {{else if (eq .Type "DOT")}}
+            "load": "{{.Name}}",
+            {{end}}
             "smallValuesMaximum": 513,
             "tmpDir": ".tmp"
         }

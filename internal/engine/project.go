@@ -6,6 +6,7 @@ import (
 	"path"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"text/template"
 )
 
@@ -16,23 +17,24 @@ type project struct {
 	DevPath  string
 	Emulator string
 	Name     string
+	Type     string
 }
 
-func CreateProject(env *Environment, name string) error {
+func CreateProject(env *Environment, name string, projType string) error {
 	devpath, err := filepath.Abs(env.BasePath)
 	if err != nil {
 		return err
 	}
 
 	devpath = filepath.ToSlash(devpath)
-	p := project{devpath, env.Emulator, name}
+	p := project{devpath, env.Emulator, name, projType}
 
 	os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), 0777)
 	os.MkdirAll(filepath.Join(devpath, p.Name, "src"), 0777)
 
 	tmplFuncs := template.FuncMap{
 		"isWindows": func() bool {
-			return runtime.GOOS == "Windows"
+			return strings.EqualFold(runtime.GOOS, "Windows")
 		},
 	}
 
@@ -41,22 +43,27 @@ func CreateProject(env *Environment, name string) error {
 		return err
 	}
 
-	renderFile(p, t, ".vscode", "extensions.json")
+	err = renderFile(p, t, ".vscode", "extensions.json")
 	if err != nil {
 		return err
 	}
 
-	renderFile(p, t, ".vscode", "launch.json")
+	err = renderFile(p, t, ".vscode", "launch.json")
 	if err != nil {
 		return err
 	}
 
-	renderFile(p, t, ".vscode", "tasks.json")
+	err = renderFile(p, t, ".vscode", "tasks.json")
 	if err != nil {
 		return err
 	}
 
-	renderFile(p, t, "src", "main.asm")
+	if p.Type == "DRV" {
+		err = renderFile(p, t, "src", "driver.asm")
+	} else {
+		err = renderFile(p, t, "src", "main.asm")
+	}
+
 	if err != nil {
 		return err
 	}

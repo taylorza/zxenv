@@ -1,14 +1,21 @@
         SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
         DEVICE ZXSPECTRUMNEXT
         CSPECTMAP "{{.Name}}.map"
-
+{{if (eq .Type "NEX")}}
         org  $8000
-
+{{else if (eq .Type "DOT")}}
+        org  $2000
+{{end}}
 main:
         ld   a,4        ; Set A to green
         out  ($fe),a    ; Change the border
+{{if (eq .Type "NEX")}}
         jr   $          ; Loop forever!
+{{else}}
+        ret
+{{end}}
 
+{{if (eq .Type "NEX")}}
 ;------------------------------------------------------------------------------
 ; Stack reservation
 STACK_SIZE      equ     100
@@ -25,3 +32,9 @@ stack_top:
         SAVENEX CFG 7,0,0,0
         SAVENEX AUTO 
         SAVENEX CLOSE
+{{else if (eq .Type "DOT")}}
+code_size   equ $
+;------------------------------------------------------------------------------
+; Output configuration
+    SAVEBIN "{{.Name}}", main, code_size
+{{end}}

@@ -21,6 +21,20 @@ You can name the project anything you want, but do not put spaces in the name. F
 C:\NextDev>zxenv new mygame
 ```
 
+The default project is a NEX project, you can also create DOT commands and Drivers using the `-t` or `--type` flag to specify the types of project to create.
+
+### Create a DOT Command project
+The command below will create a new project using the template for a DOT command
+```
+C:\NextDev>zxenv new -tDOT mydot
+```
+
+### Create a Driver project
+The command below will create a new driver project, the template project is a printer driver that flashes the border color for each character printed.
+```
+C:\NextDev>zxenv new -tDRV mydriver
+```
+
 ## What does it do
 When you run the `init` command the tool will create the folder structure described below, download the tools and move them to the appropriate location in the folder structure.
 
@@ -52,7 +66,7 @@ This does what I needed for now, but I would like to do add the following suppor
 - [ ] Move projects into a project folder under the development environment
 - [x] Add support for ZEsarUX emulator
 - [ ] Add support for an external config file that can override the links used to get the resources
-- [ ] Add support for setting up the environment on a Mac 
-- [ ] Add support for setting up the environment on Linux
+- [x] Add support for setting up the environment on a Mac 
+- [x] Add support for setting up the environment on Linux
 - [ ] Cleanup the code so that it makes more intelligent decisions about paths
 - [ ] What ever else comes to mind... any ideas?
