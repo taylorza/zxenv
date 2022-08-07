@@ -13,16 +13,15 @@ import (
 )
 
 var imageUrls = map[string]struct{}{
-	"core3-128mb": {},
-	"2gb":         {},
-	"4gb":         {},
-	"8gb":         {},
-	"16gb":        {},
+	"core3": {},
+	"2gb":   {},
+	"4gb":   {},
+	"8gb":   {},
+	"16gb":  {},
 }
 
 var emulators = map[string]struct{}{
 	"cspect":  {},
-	"cspect2": {},
 	"zesarux": {},
 }
 
@@ -39,7 +38,7 @@ var initCmd = &cobra.Command{
 		emulator = strings.ToLower(emulator)
 
 		if _, ok := imageUrls[size]; !ok {
-			fmt.Println("Invalid size, valid sizes are: Core3-128mb, 2gb, 4gb, 8gb, 16gb")
+			fmt.Println("Invalid size, valid sizes are: Core3, 2gb, 4gb, 8gb, 16gb")
 			return
 		}
 
@@ -64,6 +63,6 @@ var initCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(initCmd)
 
-	initCmd.Flags().StringP("size", "s", "Core3-128mb", "Image size of the SD card (Core3-128mb, 2gb, 4gb, 8gb, 16gb)")
+	initCmd.Flags().StringP("size", "s", "Core3", "Image size of the SD card (Core3, 2gb, 4gb, 8gb, 16gb)")
 	initCmd.Flags().StringP("emulator", "e", "cspect", "Emulator to use (cspect, zesarux)")
 }

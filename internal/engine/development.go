@@ -40,7 +40,7 @@ func (s Sources) resolve(name string) (string, error) {
 var sources = Sources{
 	Source{Name: "cspect", Arch: "", OS: "", Url: "http://www.javalemmings.com/public/zxnext/CSpect2_16_5.zip"},
 	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip"},
-	Source{Name: "core3-128mb", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07g.zip?raw=true"},
+	Source{Name: "core3", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07k.zip?raw=true"},
 	Source{Name: "2gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip"},
 	Source{Name: "4gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip"},
 	Source{Name: "8gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip"},
@@ -49,25 +49,8 @@ var sources = Sources{
 	Source{Name: "asm", Arch: "amd64", OS: "linux", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.0.linux.zip?raw=true"},
 	Source{Name: "asm", Arch: "", OS: "darwin", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.0.mac.zip?raw=true"},
 	Source{Name: "hdfmonkey", Arch: "", OS: "", Url: "http://uto.speccy.org/downloads/hdfmonkey_windows.zip"},
-	Source{Name: "dezog", Arch: "", OS: "", Url: "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll"},
-	Source{Name: "dezog-conf", Arch: "", OS: "", Url: "https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config"},
 }
 
-/*
-var urls = map[string]string{
-	"cspect":      "http://www.javalemmings.com/public/zxnext/CSpect2_16_5.zip",
-	"zesarux":     "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip",
-	"core3-128mb": "https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07g.zip?raw=true",
-	"2gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip",
-	"4gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip",
-	"8gb":         "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip",
-	"16gb":        "http://www.zxspectrumnext.online/cspect/cspect-next-16gb.zip",
-	"asm":         "https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip",
-	"hdfmonkey":   "http://uto.speccy.org/downloads/hdfmonkey_windows.zip",
-	"dezog":       "https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll",
-	"dezog-conf":  "https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config",
-}
-*/
 func SetupDevelopment(env *Environment) error {
 	fmt.Println("Setting up development environment")
 	fmt.Printf("Emulator: %v\n", env.Emulator)
