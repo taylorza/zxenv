@@ -40,7 +40,7 @@ func (s Sources) resolve(name string) (string, error) {
 var sources = Sources{
 	Source{Name: "cspect", Arch: "", OS: "", Url: "http://www.javalemmings.com/public/zxnext/CSpect2_16_5.zip"},
 	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip"},
-	Source{Name: "core3", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07k.zip?raw=true"},
+	Source{Name: "core3", Arch: "", OS: "", Url: "https://www.specnext.com/distro/22.09/sn-emulator-22.09.zip"},
 	Source{Name: "2gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip"},
 	Source{Name: "4gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip"},
 	Source{Name: "8gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip"},
