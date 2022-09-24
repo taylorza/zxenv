@@ -90,6 +90,57 @@
         }
     {{end}},
         {
+            "preLaunchTask": "Build",        
+            "type": "dezog",
+            "request": "launch",
+            "name": "Z80 Debugger Serial",               
+            "remoteType": "zxnext",
+            "sjasmplus": [
+                {
+                    "path": "{{.Name}}.sld"
+                }
+            ], 
+            "history": {
+                "reverseDebugInstructionCount": 10000,
+                "codeCoverageEnabled": true
+            },
+            "startAutomatically": false,
+            "commandsAfterLaunch": [
+                "-logpoint enable",
+                "-assertion enable"
+            ],
+             "zxnext": 
+             {
+                 "serial": "<SERIAL PORT>"
+             },
+            
+            "rootFolder": "${workspaceFolder}",
+            "listFiles": [
+              {
+                  "path": "project.lst",
+                  "useFiles": true,
+                  "asm": "{{.DevPath}}/emulator/sjasmplus",
+                  {{if (eq .Type "DRV")}}
+                  "mainFile": "src/driver.asm"
+                  {{else}}
+                  "mainFile": "src/main.asm"
+                  {{end}}                  
+              }
+            ],
+            "disassemblerArgs": 
+            {
+                "esxdosRst": true
+            },
+            {{if (eq .Type "NEX")}}
+            "load": "{{.Name}}.nex",
+            {{else if (eq .Type "DOT")}}
+            "load": "{{.Name}}",
+            {{end}}
+            "skipInterrupt": false,
+            "smallValuesMaximum": 513,
+            "tmpDir": ".tmp" 
+        },
+        {
             "preLaunchTask": "Build",
             "type": "dezog",
             "request": "launch",
