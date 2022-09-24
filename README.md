@@ -35,6 +35,37 @@ The command below will create a new driver project, the template project is a pr
 C:\NextDev>zxenv new -tDRV mydriver
 ```
 
+## Serial Debugging
+If you are planing to do serial debugging, the VSCode launch template includes everything you need to debug directly on the Next/N-GO via a serial cable. 
+Of course, you will require a custom serial cable that can be plugged into one of the joystick ports. You can find instructions on building a serial cable [HERE](https://amaninhistechnoshed.com/a-man-in-his-technoshed/coding) 
+
+You will also need to update the launch script to let the debugger know what port to use. Locate the following section in the `.vscode/launch.json` file and replace `<SERIAL PORT>` with the port assigned to the serial interface on your machine.
+
+```
+"zxnext": 
+{
+    "serial": "<SERIAL PORT>"
+},
+```
+
+For Windows that might look something like this (remember your port will probably differ)
+
+```
+"zxnext": 
+{
+    "serial": "COM2"
+},
+```
+
+On a Mac it would look something like this
+
+```
+"zxnext": 
+{
+    "serial": "/dev/tty.usbserial-AQ02PCVO"
+},
+```
+
 ## What does it do
 When you run the `init` command the tool will create the folder structure described below, download the tools and move them to the appropriate location in the folder structure.
 
@@ -53,10 +84,12 @@ Running the `new` command creates a folder with the name of your project that in
 |ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip|
 |DeZogPlugin |https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll|
 |dezog-conf  |https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config|
-|sjasmplus   |https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip|
+|sjasmplus*  |https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip|
 |hdfmonkey   |http://uto.speccy.org/downloads/hdfmonkey_windows.zip|
-|sdcard      |http://www.zxspectrumnext.online/cspect/tbbluemmc-*.zip|
-|core-3 sdcard|https://github.com/taylorza/zxenv/blob/main/images/tbblue_core_3_01_10_os_2_07g.zip?raw=true|
+|sdcard      |http://www.zxspectrumnext.online/cspect/cspect-next-<SIZE>.zip|
+|core-3 sdcard|https://www.specnext.com/distro/22.09/sn-emulator-22.09.zip|
+
+* - sjasmplus builds for Linux and Mac are hosted in this repository and built by me from the original source code without any changes
 
 ## What plans do I have for this
 This does what I needed for now, but I would like to do add the following support, in no particular order
