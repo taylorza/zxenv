@@ -38,16 +38,16 @@ func (s Sources) resolve(name string) (string, error) {
 }
 
 var sources = Sources{
-	Source{Name: "cspect", Arch: "", OS: "", Url: "http://www.javalemmings.com/public/zxnext/CSpect2_16_5.zip"},
+	Source{Name: "cspect", Arch: "", OS: "", Url: "http://www.javalemmings.com/public/zxnext/CSpect2_16_6.zip"},
 	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip"},
 	Source{Name: "core3", Arch: "", OS: "", Url: "https://www.specnext.com/distro/22.09/sn-emulator-22.09.zip"},
 	Source{Name: "2gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip"},
 	Source{Name: "4gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip"},
 	Source{Name: "8gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip"},
 	Source{Name: "16gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-16gb.zip"},
-	Source{Name: "asm", Arch: "", OS: "", Url: "https://github.com/z00m128/sjasmplus/releases/download/v1.20.0/sjasmplus-1.20.0.win.zip"},
-	Source{Name: "asm", Arch: "amd64", OS: "linux", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.0.linux.zip?raw=true"},
-	Source{Name: "asm", Arch: "", OS: "darwin", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.0.mac.zip?raw=true"},
+	Source{Name: "asm", Arch: "", OS: "", Url: "https://github.com/z00m128/sjasmplus/releases/download/v1.20.1/sjasmplus-1.20.1.win.zip"},
+	Source{Name: "asm", Arch: "amd64", OS: "linux", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.1.linux.zip?raw=true"},
+	Source{Name: "asm", Arch: "", OS: "darwin", Url: "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.1.mac.zip?raw=true"},
 	Source{Name: "hdfmonkey", Arch: "", OS: "", Url: "http://uto.speccy.org/downloads/hdfmonkey_windows.zip"},
 }
 
