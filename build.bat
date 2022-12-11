@@ -28,7 +28,7 @@ echo MacOS x86-64 Build
 set GOOS=darwin
 set GOARCH=amd64
 go build -o bin/mac-amd64/zxenv .
-powershell Compress-Archive -LiteralPath 'bin/mac-m1/zxenv' -DestinationPath "bin/mac-m1.zip" -Force
+powershell Compress-Archive -LiteralPath 'bin/mac-amd64/zxenv' -DestinationPath "bin/mac-amd64.zip" -Force
 
 echo MacOS ARM64 Build
 set GOOS=darwin
