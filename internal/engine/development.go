@@ -38,9 +38,9 @@ func (s Sources) resolve(name string) (string, error) {
 }
 
 var sources = Sources{
-	Source{Name: "cspect", Arch: "", OS: "", Url: "http://www.javalemmings.com/public/zxnext/CSpect2_17_1.zip"},
-	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip"},
-	Source{Name: "core3", Arch: "", OS: "", Url: "https://www.specnext.com/distro/22.09/sn-emulator-22.09.zip"},
+	Source{Name: "cspect", Arch: "", OS: "", Url: "https://www.dropbox.com/s/6hcl37zyqqars4q/CSpect2_19_4_3.zip?dl=1"},
+	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.3/ZEsarUX_windows-10.3.zip"},
+	Source{Name: "core3", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/raw/main/images/tbblue_core_3_02_00_os_2_08.zip"},
 	Source{Name: "2gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip"},
 	Source{Name: "4gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-4gb.zip"},
 	Source{Name: "8gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-8gb.zip"},
