@@ -9,8 +9,8 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "zxenv",
-	Short: "CLI for the ZX Spectrum Next development environment v0.0.10",
-	Long:  `CLI for the ZX Spectrum Next development environment v0.0.10`,
+	Short: "CLI for the ZX Spectrum Next development environment v0.0.12",
+	Long:  `CLI for the ZX Spectrum Next development environment v0.0.12`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

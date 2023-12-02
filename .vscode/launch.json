@@ -9,9 +9,9 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "cwd": "d:/temp/nextdev/",
-            "program": "d:/source/zxenv/.",
-            "args": ["new", "tilemap"]
+            "cwd": "test",
+            "program": ".",
+            "args": ["init"]
         }
     ]
 }

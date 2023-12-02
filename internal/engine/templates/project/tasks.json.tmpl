@@ -4,7 +4,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "{{.DevPath}}/emulator/sjasmplus",
+            "command": "{{.BasePath}}/emulator/sjasmplus",
             "args": [
             {{if (eq .Type "DRV")}}
                 "src/driver.asm",
@@ -41,11 +41,11 @@
             "label": "Update SDCard",
             "type": "shell",
             {{if (eq .Type "NEX")}}
-            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}}.nex",
+            "command": "{{.BasePath}}/emulator/hdfmonkey put {{.BasePath}}/sdcard/tbblue-dev.sd {{.Name}}.nex",
             {{else if (eq .Type "DOT")}}
-            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}} /dot/",
+            "command": "{{.BasePath}}/emulator/hdfmonkey put {{.BasePath}}/sdcard/tbblue-dev.sd {{.Name}} /dot/",
             {{else}}
-            "command": "{{.DevPath}}/emulator/hdfmonkey put {{.DevPath}}/sdcard/tbblue-dev.sd {{.Name}}.drv",
+            "command": "{{.BasePath}}/emulator/hdfmonkey put {{.BasePath}}/sdcard/tbblue-dev.sd {{.Name}}.drv",
             {{end}}
             
             "dependsOrder": "sequence",
@@ -59,9 +59,9 @@
             "label": "Launch CSpect",
             "type": "shell",
             {{if (isWindows)}}
-            "command": "{{.DevPath}}/emulator/CSpect.exe -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.sd",
+            "command": "{{.BasePath}}/emulator/CSpect.exe -esc -r -w2 -brk -zxnext -nextrom -mmc={{.BasePath}}/sdcard/tbblue-dev.sd",
             {{else}}
-            "command": "mono {{.DevPath}}/emulator/CSpect.exe -r -w2 -brk -zxnext -nextrom -mmc={{.DevPath}}/sdcard/tbblue-dev.sd",
+            "command": "mono {{.BasePath}}/emulator/CSpect.exe -esc -r -w2 -brk -zxnext -nextrom -mmc={{.BasePath}}/sdcard/tbblue-dev.sd",
             {{end}}
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -71,7 +71,7 @@
         {
             "label": "Launch ZEsarUX",
             "type": "shell",
-            "command": "{{.DevPath}}/emulator/zesarux --romfile {{.DevPath}}/emulator/tbblue_loader.rom --mmc-file {{.DevPath}}/sdcard/tbblue-dev.mmc --enable-mmc --enable-divmmc-ports --machine tbblue --realvideo --enable-remoteprotocol",
+            "command": "{{.BasePath}}/emulator/zesarux --romfile {{.BasePath}}/emulator/tbblue_loader.rom --mmc-file {{.BasePath}}/sdcard/tbblue-dev.mmc --enable-mmc --enable-divmmc-ports --machine tbblue --realvideo --enable-remoteprotocol",
             "dependsOrder": "sequence",
             "dependsOn": [
             ]

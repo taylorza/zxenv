@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -38,6 +39,7 @@ func (s Sources) resolve(name string) (string, error) {
 }
 
 var sources = Sources{
+	Source{Name: "sources", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/blob/main/sources.json?raw=true"},
 	Source{Name: "cspect", Arch: "", OS: "", Url: "https://www.dropbox.com/s/6hcl37zyqqars4q/CSpect2_19_4_3.zip?dl=1"},
 	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.3/ZEsarUX_windows-10.3.zip"},
 	Source{Name: "core3", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/raw/main/images/tbblue_core_3_02_00_os_2_08.zip"},
@@ -57,7 +59,12 @@ func SetupDevelopment(env *Environment) error {
 	fmt.Printf("SD Card Size: %v\n", env.SDSize)
 	fmt.Println()
 
-	err := makeDirectories(env)
+	err := downloadSources(env)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = makeDirectories(env)
 	if err != nil {
 		return err
 	}
@@ -87,6 +94,41 @@ func SetupDevelopment(env *Environment) error {
 		return err
 	}
 
+	return nil
+}
+
+func downloadSources(env *Environment) error {
+	exePath, err := os.Executable()
+	if err != nil {
+		return fmt.Errorf("failed to resolve executable path (%w)", err)
+	}
+
+	dir := path.Dir(exePath)
+	sourcesFile := filepath.Join(dir, "sources.json")
+
+	if _, err := os.Stat(sourcesFile); os.IsNotExist(err) {
+		sourcesFile = filepath.Join(env.BasePath, "sources.json")
+	}
+
+	_, err = os.Stat(sourcesFile)
+	if os.IsNotExist(err) {
+		fmt.Println("Downloading sources")
+		err = download("sources", sourcesFile)
+	}
+
+	if err != nil {
+		return fmt.Errorf("failed to acquire latest sources.json (%w)", err)
+	}
+
+	sourcesBytes, err := os.ReadFile("sources.json")
+	if err != nil {
+		fmt.Printf("failed to read sources.json (%s)\n", err)
+	}
+
+	err = json.Unmarshal(sourcesBytes, &sources)
+	if err != nil {
+		return fmt.Errorf("failed to parse sources.json (%s)\n", err)
+	}
 	return nil
 }
 

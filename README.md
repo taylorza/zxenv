@@ -80,14 +80,12 @@ Running the `new` command creates a folder with the name of your project that in
 ## What is installed
 |Tool        |URL|
 |------------|-----------------------------------------------------------------------------|
-|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_16_6.zip|
-|ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.1.zip|
-|DeZogPlugin |https://github.com/maziac/DeZogPlugin/releases/download/v2.1.0/DeZogPlugin.dll|
-|dezog-conf  |https://raw.githubusercontent.com/maziac/DeZogPlugin/main/DeZogPlugin.dll.config|
+|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_19_4.4.zip|
+|ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.3.zip|
 |sjasmplus*  |https://github.com/z00m128/sjasmplus/releases/download/v1.20.1/sjasmplus-1.20.1.win.zip|
 |hdfmonkey   |http://uto.speccy.org/downloads/hdfmonkey_windows.zip|
 |sdcard      |http://www.zxspectrumnext.online/cspect/cspect-next-<SIZE>.zip|
-|core-3 sdcard|https://www.specnext.com/distro/22.09/sn-emulator-22.09.zip|
+|core-3 sdcard|https://github.com/taylorza/zxenv/raw/main/images/tbblue_core_3_02_00_os_2_08.zip|
 
 * - sjasmplus builds for Linux and Mac are hosted in this repository and built by me from the original source code without any changes
 
@@ -96,9 +94,9 @@ This does what I needed for now, but I would like to do add the following suppor
 
 - [x] Improve the handling of command line arguments so that more options can be speficied
 - [x] Support command line options selecting the SD Card image to install
-- [ ] Move projects into a project folder under the development environment
+- [x] Move projects into a project folder under the development environment
 - [x] Add support for ZEsarUX emulator
-- [ ] Add support for an external config file that can override the links used to get the resources
+- [x] Add support for an external config file that can override the links used to get the resources
 - [x] Add support for setting up the environment on a Mac 
 - [x] Add support for setting up the environment on Linux
 - [ ] Cleanup the code so that it makes more intelligent decisions about paths

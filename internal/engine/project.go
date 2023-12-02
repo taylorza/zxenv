@@ -14,6 +14,7 @@ import (
 var tmplfs embed.FS
 
 type project struct {
+	BasePath string
 	DevPath  string
 	Emulator string
 	Name     string
@@ -21,13 +22,14 @@ type project struct {
 }
 
 func CreateProject(env *Environment, name string, projType string) error {
-	devpath, err := filepath.Abs(env.BasePath)
+	basepath, err := filepath.Abs(env.BasePath)
 	if err != nil {
 		return err
 	}
+	basepath = filepath.ToSlash(basepath)
 
-	devpath = filepath.ToSlash(devpath)
-	p := project{devpath, env.Emulator, name, projType}
+	devpath := filepath.ToSlash(filepath.Join(basepath, "projects"))
+	p := project{basepath, devpath, env.Emulator, name, projType}
 
 	os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), 0777)
 	os.MkdirAll(filepath.Join(devpath, p.Name, "src"), 0777)

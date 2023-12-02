@@ -18,8 +18,7 @@
                 "spotCount": 10
             },
             "startAutomatically": false,
-            "commandsAfterLaunch": [
-                "-logpoint enable"
+            "commandsAfterLaunch": [                
             ],
            
 // connect to the CSpect emulator via TCIP          
@@ -29,18 +28,6 @@
                     "port": 11000
             },
             "rootFolder": "${workspaceFolder}",
-            "listFiles": [
-              {
-                  "path": "project.lst",
-                  "useFiles": true,
-                  "asm": "{{.DevPath}}/emulator/sjasmplus",
-                  {{if (eq .Type "DRV")}}
-                  "mainFile": "src/driver.asm"
-                  {{else}}
-                  "mainFile": "src/main.asm"
-                  {{end}}                  
-              }
-            ],
             "disassemblerArgs": {
                 "esxdosRst": true
             },
@@ -49,7 +36,6 @@
             {{else if (eq .Type "DOT")}}
             "load": "{{.Name}}",
             {{end}}
-            "skipInterrupt": false,
             "smallValuesMaximum": 513,
             "tmpDir": ".tmp"
         }
@@ -70,8 +56,7 @@
                 "spotCount": 10
             },
             "startAutomatically": false,
-            "commandsAfterLaunch": [
-                "-logpoint enable"
+            "commandsAfterLaunch": [                
             ],
             "disassemblerArgs": {
                 "esxdosRst": true
@@ -104,7 +89,6 @@
             },
             "startAutomatically": false,
             "commandsAfterLaunch": [
-                "-logpoint enable"
             ],
              "zxnext": 
              {
@@ -112,18 +96,6 @@
              },
             
             "rootFolder": "${workspaceFolder}",
-            "listFiles": [
-              {
-                  "path": "project.lst",
-                  "useFiles": true,
-                  "asm": "{{.DevPath}}/emulator/sjasmplus",
-                  {{if (eq .Type "DRV")}}
-                  "mainFile": "src/driver.asm"
-                  {{else}}
-                  "mainFile": "src/main.asm"
-                  {{end}}                  
-              }
-            ],
             "disassemblerArgs": 
             {
                 "esxdosRst": true
@@ -133,7 +105,6 @@
             {{else if (eq .Type "DOT")}}
             "load": "{{.Name}}",
             {{end}}
-            "skipInterrupt": false,
             "smallValuesMaximum": 513,
             "tmpDir": ".tmp" 
         },
@@ -163,8 +134,7 @@
                 "codeCoverageEnabled": true
             },
             "startAutomatically": false,
-            "commandsAfterLaunch": [
-                "-logpoint enable",
+            "commandsAfterLaunch": [                
                 "-wpmem enable"
             ],
             "disassemblerArgs": {
