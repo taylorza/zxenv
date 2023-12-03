@@ -80,7 +80,7 @@ Running the `new` command creates a folder with the name of your project that in
 ## What is installed
 |Tool        |URL|
 |------------|-----------------------------------------------------------------------------|
-|CSpect      |http://www.javalemmings.com/public/zxnext/CSpect2_19_4.4.zip|
+|CSpect      |https://www.dropbox.com/scl/fi/cqjnsyeaaivuihtuc59gc/CSpect2_19_5_0.zip?rlkey=pxtfz1hfk46otb7ana7lhtmpk&dl=1|
 |ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.3.zip|
 |sjasmplus*  |https://github.com/z00m128/sjasmplus/releases/download/v1.20.1/sjasmplus-1.20.1.win.zip|
 |hdfmonkey   |http://uto.speccy.org/downloads/hdfmonkey_windows.zip|
