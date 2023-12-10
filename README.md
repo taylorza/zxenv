@@ -21,7 +21,13 @@ You can name the project anything you want, but do not put spaces in the name. F
 C:\NextDev>zxenv new mygame
 ```
 
-The default project is a NEX project, you can also create DOT commands and Drivers using the `-t` or `--type` flag to specify the types of project to create.
+The default project is a NEX project, you can also create TAP files with a BASIC loader, DOT commands and Drivers using the `-t` or `--type` flag to specify the types of project to create.
+
+### Create a TAP project
+The command below will create a new project using the template for a TAP file that includes the BASIC loader
+```
+C:\NextDev>zxenv new -tTAP mytap
+```
 
 ### Create a DOT Command project
 The command below will create a new project using the template for a DOT command
