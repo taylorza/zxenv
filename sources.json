@@ -55,6 +55,12 @@
     },
     {
         "Name": "asm",
+        "Arch": "arm64",
+        "OS": "linux",
+        "Url": "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.3.linux.zip?raw=true"
+    },    
+    {
+        "Name": "asm",
         "Arch": "",
         "OS": "darwin",
         "Url": "https://github.com/taylorza/zxenv/blob/main/images/sjasmplus-1.20.3.mac.zip?raw=true"

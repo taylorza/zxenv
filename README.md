@@ -78,16 +78,9 @@ When you run the `init` command the tool will create the folder structure descri
 Running the `new` command creates a folder with the name of your project that includes a simple sample program as well as the VS Code templates required to launch the emulator, build and debug the application. The default launch action will run the build task before launching the application to ensure that you are running the latest code. 
 
 ## What is installed
-|Tool        |URL|
-|------------|-----------------------------------------------------------------------------|
-|CSpect      |https://www.dropbox.com/scl/fi/cqjnsyeaaivuihtuc59gc/CSpect2_19_5_0.zip?rlkey=pxtfz1hfk46otb7ana7lhtmpk&dl=1|
-|ZEsarUX     |https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.1/ZEsarUX_windows-10.3.zip|
-|sjasmplus*  |https://github.com/z00m128/sjasmplus/releases/download/v1.20.1/sjasmplus-1.20.1.win.zip|
-|hdfmonkey   |http://uto.speccy.org/downloads/hdfmonkey_windows.zip|
-|sdcard      |http://www.zxspectrumnext.online/cspect/cspect-next-<SIZE>.zip|
-|core-3 sdcard|https://github.com/taylorza/zxenv/raw/main/images/tbblue_core_3_02_00_os_2_08.zip|
+See [sources.json](https://github.com/taylorza/zxenv/blob/main/sources.json)
 
-* - sjasmplus builds for Linux and Mac are hosted in this repository and built by me from the original source code without any changes
+sjasmplus builds for Linux and Mac are hosted in this repository and built by me from the original source code without any changes
 
 ## What plans do I have for this
 This does what I needed for now, but I would like to do add the following support, in no particular order
@@ -99,5 +92,5 @@ This does what I needed for now, but I would like to do add the following suppor
 - [x] Add support for an external config file that can override the links used to get the resources
 - [x] Add support for setting up the environment on a Mac 
 - [x] Add support for setting up the environment on Linux
-- [ ] Cleanup the code so that it makes more intelligent decisions about paths
+- [x] Cleanup the code so that it makes more intelligent decisions about paths
 - [ ] What ever else comes to mind... any ideas?

@@ -4,7 +4,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "{{.BasePath}}/emulator/sjasmplus",
+            "command": "${workspaceFolder}/../../emulator/sjasmplus",
             "args": [
             {{if (eq .Type "DRV")}}
                 "src/driver.asm",
@@ -20,6 +20,7 @@
                 "--lst={{.Name}}.lst"
             ],
             "problemMatcher": {
+                "owner": "asm",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}"
@@ -41,11 +42,11 @@
             "label": "Update SDCard",
             "type": "shell",
             {{if (eq .Type "NEX")}}
-            "command": "{{.BasePath}}/emulator/hdfmonkey put {{.BasePath}}/sdcard/tbblue-dev.sd {{.Name}}.nex",
+            "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.nex",
             {{else if (eq .Type "DOT")}}
-            "command": "{{.BasePath}}/emulator/hdfmonkey put {{.BasePath}}/sdcard/tbblue-dev.sd {{.Name}} /dot/",
+            "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}} /dot/",
             {{else}}
-            "command": "{{.BasePath}}/emulator/hdfmonkey put {{.BasePath}}/sdcard/tbblue-dev.sd {{.Name}}.drv",
+            "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.drv",
             {{end}}
             
             "dependsOrder": "sequence",
@@ -59,9 +60,9 @@
             "label": "Launch CSpect",
             "type": "shell",
             {{if (isWindows)}}
-            "command": "{{.BasePath}}/emulator/CSpect.exe -esc -r -w2 -brk -zxnext -nextrom -mmc={{.BasePath}}/sdcard/tbblue-dev.sd",
+            "command": "${workspaceFolder}/../../emulator/CSpect.exe -esc -r -w2 -brk -zxnext -nextrom -mmc=${workspaceFolder}/../../sdcard/tbblue-dev.sd",
             {{else}}
-            "command": "mono {{.BasePath}}/emulator/CSpect.exe -esc -r -w2 -brk -zxnext -nextrom -mmc={{.BasePath}}/sdcard/tbblue-dev.sd",
+            "command": "mono ${workspaceFolder}/../../emulator/CSpect.exe -esc -r -w2 -brk -zxnext -nextrom -mmc=${workspaceFolder}/../../sdcard/tbblue-dev.sd",
             {{end}}
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -71,7 +72,7 @@
         {
             "label": "Launch ZEsarUX",
             "type": "shell",
-            "command": "{{.BasePath}}/emulator/zesarux --romfile {{.BasePath}}/emulator/tbblue_loader.rom --mmc-file {{.BasePath}}/sdcard/tbblue-dev.mmc --enable-mmc --enable-divmmc-ports --machine tbblue --realvideo --enable-remoteprotocol",
+            "command": "${workspaceFolder}/../../emulator/zesarux --romfile ${workspaceFolder}/../../emulator/tbblue_loader.rom --mmc-file ${workspaceFolder}/../../sdcard/tbblue-dev.mmc --enable-mmc --enable-divmmc-ports --machine tbblue --realvideo --enable-remoteprotocol",
             "dependsOrder": "sequence",
             "dependsOn": [
             ]
