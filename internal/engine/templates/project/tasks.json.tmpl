@@ -45,6 +45,8 @@
             "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.nex",
             {{else if (eq .Type "DOT")}}
             "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}} /dot/",
+            {{else if (eq .Type "TAP")}}
+            "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.tap",
             {{else}}
             "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.drv",
             {{end}}

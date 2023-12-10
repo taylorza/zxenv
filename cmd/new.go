@@ -1,6 +1,5 @@
 /*
 Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -32,6 +31,8 @@ var newCmd = &cobra.Command{
 			projType = "NEX"
 		case "dot":
 			projType = "DOT"
+		case "tap":
+			projType = "TAP"
 		case "drv":
 			projType = "DRV"
 		default:
@@ -54,5 +55,5 @@ var newCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(newCmd)
 
-	newCmd.Flags().StringP("type", "t", "NEX", "Project type NEX, DOT, DRV")
+	newCmd.Flags().StringP("type", "t", "NEX", "Project type NEX, DOT, TAP, DRV")
 }

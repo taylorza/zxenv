@@ -1,11 +1,14 @@
         SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
         DEVICE ZXSPECTRUMNEXT
         CSPECTMAP "{{.Name}}.map"
-{{if (eq .Type "NEX")}}
-        org  $8000
+
+{{if (or (eq .Type "NEX") (eq .Type "TAP"))}}
+BASE_ADDRESS equ $8000
 {{else if (eq .Type "DOT")}}
-        org  $2000
+BASE_ADDRESS equ $2000
 {{end}}
+
+        org BASE_ADDRESS
 main:
         ld   a,4        ; Set A to green
         out  ($fe),a    ; Change the border
@@ -33,8 +36,42 @@ stack_top:
         SAVENEX AUTO 
         SAVENEX CLOSE
 {{else if (eq .Type "DOT")}}
-code_size   equ $
 ;------------------------------------------------------------------------------
 ; Output configuration
+code_size   equ $
     SAVEBIN "{{.Name}}", main, code_size
+{{else if (eq .Type "TAP")}}
+code_size   equ $-BASE_ADDRESS
+;-------------------------------------------------------------------------------
+; Tape loader
+basic_loader
+.CODE      = $af
+.USR       = $c0
+.LOAD      = $ef
+.CLEAR     = $fd
+.RANDOMIZE = $f9
+
+        org $5c00
+.line_start
+        db 0, 1                 ; line number
+        dw .line_len            ; line length
+.line_source
+        db .CLEAR,'0',$0e,0,0
+        dw main - 1
+        db 0, ':',.LOAD,'"'
+.fname  ds 10,32
+        org .fname
+        db "{{.Name}}"
+        org .fname+10
+        db '"',.CODE,':'
+        db .RANDOMIZE,.USR,'0',$0e,0,0
+        dw main
+        db 0, $0d
+.line_len   = $-.line_source
+.loader_len = $-.line_start
+;------------------------------------------------------------------------------
+; Output configuration
+        EMPTYTAP "{{.Name}}.tap"
+        SAVETAP "{{.Name}}.tap", BASIC, "{{.Name}}", .line_start, .loader_len, 1
+        SAVETAP "{{.Name}}.tap", CODE, "{{.Name}}", main, code_size, main
 {{end}}
