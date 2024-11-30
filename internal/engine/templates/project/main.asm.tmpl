@@ -38,7 +38,7 @@ stack_top:
 {{else if (eq .Type "DOT")}}
 ;------------------------------------------------------------------------------
 ; Output configuration
-code_size   equ $
+code_size   equ $-BASE_ADDRESS
     SAVEBIN "{{.Name}}", main, code_size
 {{else if (eq .Type "TAP")}}
 code_size   equ $-BASE_ADDRESS
