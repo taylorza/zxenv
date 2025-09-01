@@ -4,23 +4,28 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "${workspaceFolder}/../../emulator/sjasmplus",
-            "args": [
-            {{if (eq .Type "DRV")}}
-                "src/driver.asm",
+            {{if (eq .Type "DOTN")}}
+                "command": "make -i clean all",
+                "args": [],
             {{else}}
-                "src/main.asm",
+                "command": "${workspaceFolder}/../../emulator/sjasmplus",
+                "args": [
+                {{if (eq .Type "DRV")}}
+                    "src/driver.asm",
+                {{else}}
+                    "src/main.asm",
+                {{end}}
+                    "--zxnext=cspect",
+                    "--inc=inc",
+                    "--msg=war",
+                    "--fullpath",
+                    "--sym={{.Name}}.sym",
+                    "--sld={{.Name}}.sld",
+                    "--lst={{.Name}}.lst"
+                ],
             {{end}}
-                "--zxnext=cspect",
-                "--inc=inc",
-                "--msg=war",
-                "--fullpath",
-                "--sym={{.Name}}.sym",
-                "--sld={{.Name}}.sld",
-                "--lst={{.Name}}.lst"
-            ],
             "problemMatcher": {
-                "owner": "asm",
+                "owner": "build",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}"
@@ -43,7 +48,7 @@
             "type": "shell",
             {{if (eq .Type "NEX")}}
             "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.nex",
-            {{else if (eq .Type "DOT")}}
+            {{else if (or (eq .Type "DOT") (eq .Type "DOTN"))}}
             "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}} /dot/",
             {{else if (eq .Type "TAP")}}
             "command": "${workspaceFolder}/../../emulator/hdfmonkey put ${workspaceFolder}/../../sdcard/tbblue-dev.sd {{.Name}}.tap",

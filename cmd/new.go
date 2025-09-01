@@ -31,6 +31,8 @@ var newCmd = &cobra.Command{
 			projType = "NEX"
 		case "dot":
 			projType = "DOT"
+		case "dotn":
+			projType = "DOTN"
 		case "tap":
 			projType = "TAP"
 		case "drv":
@@ -55,5 +57,5 @@ var newCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(newCmd)
 
-	newCmd.Flags().StringP("type", "t", "NEX", "Project type NEX, DOT, TAP, DRV")
+	newCmd.Flags().StringP("type", "t", "NEX", "Project type NEX, DOT, DOTN, TAP, DRV")
 }

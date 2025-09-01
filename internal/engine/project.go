@@ -31,9 +31,10 @@ func CreateProject(env *Environment, name string, projType string) error {
 	devpath := filepath.ToSlash(filepath.Join(basepath, "projects"))
 	p := project{basepath, devpath, env.Emulator, name, projType}
 
-	os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), 0777)
-	os.MkdirAll(filepath.Join(devpath, p.Name, "src"), 0777)
-
+	if projType != "DOTN" {
+		os.MkdirAll(filepath.Join(devpath, p.Name, "inc"), 0777)
+		os.MkdirAll(filepath.Join(devpath, p.Name, "src"), 0777)
+	}
 	tmplFuncs := template.FuncMap{
 		"isWindows": func() bool {
 			return strings.EqualFold(runtime.GOOS, "Windows")
@@ -60,9 +61,29 @@ func CreateProject(env *Environment, name string, projType string) error {
 		return err
 	}
 
-	if p.Type == "DRV" {
+	switch p.Type {
+	case "DOTN":
+		err = renderFile(p, t, ".vscode", "c_cpp_properties.json")
+		if err != nil {
+			return err
+		}
+		err = renderFile(p, t, "", "makefile")
+		if err != nil {
+			return err
+		}
+
+		err = renderFile(p, t, "", "main.c")
+		if err != nil {
+			return err
+		}
+
+		err = renderFile(p, t, "", "zpragma.inc")
+		if err != nil {
+			return err
+		}
+	case "DRV":
 		err = renderFile(p, t, "src", "driver.asm")
-	} else {
+	default:
 		err = renderFile(p, t, "src", "main.asm")
 	}
 
