@@ -2,6 +2,7 @@ package engine
 
 import (
 	"archive/zip"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -52,17 +53,30 @@ func downloadFile(url, destination string, progress ProgressFunc) error {
 	}
 	defer f.Close()
 
-	resp, err := http.Get(url)
+	var srcrdr io.ReadCloser
+	if strings.HasPrefix(url, "file://") {
+		srcrdr, err = os.Open((string)(url[7:]))
+		if err != nil {
+			return err
+		}
+		defer srcrdr.Close()
+	} else {
+		resp, err := http.Get(url)
+		if err != nil {
+			return err
+		}
+		srcrdr = resp.Body
+
+		defer srcrdr.Close()
+
+		if resp.StatusCode != 200 {
+			return fmt.Errorf("%s:%s", resp.Status, url)
+		}
+	}
+	err = copyAll(f, srcrdr, progress)
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
-
-	err = copyAll(f, resp.Body, progress)
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 

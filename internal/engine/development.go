@@ -40,7 +40,7 @@ func (s Sources) resolve(name string) (string, error) {
 
 var sources = Sources{
 	Source{Name: "sources", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/blob/main/sources.json?raw=true"},
-	Source{Name: "cspect", Arch: "", OS: "", Url: "https://www.dropbox.com/s/6hcl37zyqqars4q/CSpect2_19_4_3.zip?dl=1"},
+	Source{Name: "cspect", Arch: "", OS: "", Url: "file://CSpect3_0_1_0.zip"},
 	Source{Name: "zesarux", Arch: "amd64", OS: "windows", Url: "https://github.com/chernandezba/zesarux/releases/download/ZEsarUX-10.3/ZEsarUX_windows-10.3.zip"},
 	Source{Name: "core3", Arch: "", OS: "", Url: "https://github.com/taylorza/zxenv/raw/main/images/tbblue_core_3_02_00_os_2_08.zip"},
 	Source{Name: "2gb", Arch: "", OS: "", Url: "http://www.zxspectrumnext.online/cspect/cspect-next-2gb.zip"},
@@ -316,7 +316,6 @@ func download(urlkey, filename string) error {
 	if err != nil {
 		return err
 	}
-	downloadFile(url, filename, reportCopyProgress)
 
-	return nil
+	return downloadFile(url, filename, reportCopyProgress)
 }
